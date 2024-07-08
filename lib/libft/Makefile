@@ -4,29 +4,27 @@ SOURCES = ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_st
 		ft_strchr.c ft_strrchr.c ft_memmove.c ft_strncmp.c ft_memchr.c ft_memcmp.c ft_strnstr.c \
 		ft_atoi.c ft_strdup.c ft_calloc.c ft_substr.c ft_strjoin.c ft_split.c ft_itoa.c ft_strmapi.c \
 		ft_striteri.c ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c ft_strtrim.c \
-		ft_get_next_line.c ft_strappend.c
+		ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstdelone.c ft_lstlast.c ft_lstadd_back.c \
+		ft_lstiter.c ft_lstclear.c ft_lstmap.c ft_strappend.c
 OBJS = $(SOURCES:.c=.o)
-BONUS_SOURCES = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstdelone.c ft_lstlast.c ft_lstadd_back.c ft_lstiter.c ft_lstclear.c ft_lstmap.c
-BONUS_OBJS = $(BONUS_SOURCES:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
+PRINTF_PATH = ./ft_printf
 PRINTF_NAME = libftprintf.a
-PRINTF_PATH = ft_printf/$(PRINTF_NAME)
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	ar -rc $(NAME) $(OBJS) 
-
-bonus: $(BONUS_OBJS)
-	ar -rc $(NAME) $(BONUS_OBJS)
-
+	make -C $(PRINTF_PATH)
+	cp $(PRINTF_PATH)/$(PRINTF_NAME) $(NAME)
+	ar -r $(NAME) $(OBJS)
 clean:
-	$(RM) $(OBJS) $(BONUS_OBJS)
+	$(RM) $(OBJS)
+	make clean -C $(PRINTF_PATH)
 	
 fclean: clean
 	$(RM) $(NAME)
+	make fclean -C $(PRINTF_PATH)
 	
 re: fclean all
-

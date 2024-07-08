@@ -6,7 +6,7 @@
 /*   By: emyildir <emyildir@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 13:37:38 by emyildir          #+#    #+#             */
-/*   Updated: 2023/12/07 14:59:22 by emyildir         ###   ########.fr       */
+/*   Updated: 2024/05/04 12:44:20 by emyildir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *s)
 {
 	unsigned int	i;
 
+	if (!s)
+		return (0);
 	i = -1;
 	while (s[++i])
 		;

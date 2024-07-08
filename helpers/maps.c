@@ -6,7 +6,7 @@
 /*   By: emyildir <emyildir@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 23:51:55 by emyildir          #+#    #+#             */
-/*   Updated: 2024/04/30 09:21:20 by emyildir         ###   ########.fr       */
+/*   Updated: 2024/07/08 01:31:00 by emyildir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 int	check_walls(t_map *map)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
 	i = 0;
-	while (i < map->height)
+	while (i < map->map_height)
 	{
 		j = 0;
-		while (j < map->width)
+		while (j < map->map_width)
 		{
-			if (((i == 0 || i == map->height - 1) || \
-				(j == 0 || j == map->width - 1)) \
+			if (((i == 0 || i == map->map_height - 1) || \
+				(j == 0 || j == map->map_width - 1)) \
 				&& map->map[i][j] != WALL_CHR
 			)
 				return (0);
@@ -37,23 +37,23 @@ int	check_walls(t_map *map)
 
 int	validate_map(t_map *map)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 	int		*arr;
 
 	arr = (int *) ft_calloc(128, 4);
 	i = 0;
-	while (i < map->height)
+	while (i < map->map_height)
 	{
 		j = 0;
-		while (j < map->width)
+		while (j < map->map_width)
 		{
 			if (!(map->map[i][j] == EXIT_CHR || map->map[i][j] == PLAYER_CHR || \
 				map->map[i][j] == EMPTY_CHR || map->map[i][j] == WALL_CHR \
 				|| map->map[i][j] == COLLECTIBLE_CHR) \
 			)
 				break ;
-			arr[map->map[i][j]]++;
+			arr[(int) map->map[i][j]]++;
 			j++;
 		}
 		i++;
@@ -61,25 +61,25 @@ int	validate_map(t_map *map)
 	if (arr[EXIT_CHR] != 1 || arr[PLAYER_CHR] != 1 || arr[COLLECTIBLE_CHR] <= 0)
 		return (0);
 	free(arr);
-	return (i == map->height && check_walls(map));
+	return (i == map->map_height && check_walls(map));
 }
 
 int	check_size(t_map *map)
 {
-	size_t	i;
+	int		i;
 
 	i = 0;
 	while (map->map[i])
 	{
 		if (i == 0)
-			map->width = ft_strlen(map->map[i]);
+			map->map_width = ft_strlen(map->map[i]);
 		else
-			if (ft_strlen(map->map[i]) != map->width)
+			if (ft_strlen(map->map[i]) != (unsigned long) map->map_width)
 				return (0);
 		i++;
 	}
-	map->height = i;
-	return (map->width != 0);
+	map->map_height = i;
+	return (map->map_width != 0);
 }
 
 int	load_map(t_map *map)
@@ -105,19 +105,14 @@ int	load_map(t_map *map)
 	return (1);
 }
 
-t_map	*handle_map(char *path)
+t_map	handle_map(char *path)
 {
-	t_map	*map;
+	t_map	map;
 
-	map = (t_map *) malloc(sizeof(t_map));
-	if (!map)
-		return (0);
-	map->fd = open(path, O_RDONLY);
-	if (map->fd == -1)
-		return (0);
-		
-	if (!load_map(map) || !check_size(map) || \
-		!validate_map(map) || !check_walls(map))
-		return (0);
+	map.fd = open(path, O_RDONLY);
+	map.error = 0;
+	if (map.fd == -1 || !load_map(&map) || !check_size(&map) || \
+		!validate_map(&map) || !check_walls(&map))
+		map.error = 1;
 	return (map);
 }
