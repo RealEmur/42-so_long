@@ -10,21 +10,24 @@ OBJS = $(SOURCES:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-PRINTF_PATH = ./ft_printf
 PRINTF_NAME = libftprintf.a
+PRINTF_PATH = ft_printf
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	make -C $(PRINTF_PATH)
+$(NAME): printf $(OBJS)
 	cp $(PRINTF_PATH)/$(PRINTF_NAME) $(NAME)
-	ar -r $(NAME) $(OBJS)
+	ar -rc $(NAME) $(OBJS)
+
+printf:
+	make -C $(PRINTF_PATH)
+
 clean:
 	$(RM) $(OBJS)
-	make clean -C $(PRINTF_PATH)
+	make -C $(PRINTF_PATH) clean
 	
 fclean: clean
 	$(RM) $(NAME)
-	make fclean -C $(PRINTF_PATH)
+	make -C $(PRINTF_PATH) fclean
 	
 re: fclean all

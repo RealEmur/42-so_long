@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emyildir <emyildir@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 23:47:54 by emyildir          #+#    #+#             */
-/*   Updated: 2024/07/08 04:05:38 by emyildir         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:30:05 by emyildir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,19 @@
 int	main(int size, char **args)
 {
 	t_map	map;
-	
-	if (size == 2)
+
+	if (size != 2)
+		return (ft_printf("Error: You need to provide a map file.\n", 0));
+	if (!is_extension_ber(args[1]))
+		return (ft_printf("Error: Map files have to be in .ber fomat.\n"), 0);
+	map = handle_map(args[1]);
+	if (map.error)
 	{
-		map = handle_map(args[1]);
-		if(map.error)
-			ft_printf("Map error\n");
-		else 
-			start_game(&map);
+		if (map.map)
+			free_map(map.map);
+		ft_printf("Error: Map format is not true.\n");
 	}
+	else if(!start_game(&map))
+		ft_printf("Error: Window could not be created.\n");
 	return (0);
 }

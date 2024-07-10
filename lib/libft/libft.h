@@ -6,7 +6,7 @@
 /*   By: emyildir <emyildir@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:25:16 by emyildir          #+#    #+#             */
-/*   Updated: 2024/07/07 15:17:42 by emyildir         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:30:24 by emyildir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	*ft_memchr(const void *s, int c, size_t n);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_strappend(char **s1, char const *s2);
 void	ft_bzero(void *s, size_t n);
+void	ft_strappend(char **s1, char const *s2);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);

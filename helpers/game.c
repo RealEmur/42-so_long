@@ -6,13 +6,13 @@
 /*   By: emyildir <emyildir@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/07 18:36:44 by emyildir          #+#    #+#             */
-/*   Updated: 2024/07/08 04:02:54 by emyildir         ###   ########.fr       */
+/*   Updated: 2024/07/10 20:08:37 by emyildir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int		get_collectible_count(t_map *map)
+int	get_collectible_count(t_map *map)
 {
 	int		count;
 	int		i;
@@ -32,17 +32,33 @@ int		get_collectible_count(t_map *map)
 
 void	end_game(t_game *game)
 {
-	mlx_destroy_window(game->vars.mlx, game->vars.win);
+	free_map(game->map->map);
+	if (game->vars.win)
+		mlx_destroy_window(game->vars.mlx ,game->vars.win);
+	if (game->images.character_r_image)
+		mlx_destroy_image(game->vars.mlx, game->images.character_r_image);
+	if (game->images.character_l_image)
+		mlx_destroy_image(game->vars.mlx, game->images.character_l_image);
+	if (game->images.collectible_image)
+		mlx_destroy_image(game->vars.mlx, game->images.collectible_image);
+	if (game->images.exit_image)
+		mlx_destroy_image(game->vars.mlx, game->images.exit_image);
+	if (game->images.exit_w_player_image)
+		mlx_destroy_image(game->vars.mlx, game->images.exit_w_player_image);
+	if (game->images.wall_image)
+		mlx_destroy_image(game->vars.mlx, game->images.wall_image);
+	if (game->images.empty_image)
+		mlx_destroy_image(game->vars.mlx, game->images.empty_image);
 	exit(0);
 }
 
-void	start_game(t_map *map)
+int	start_game(t_map *map)
 {
-	t_game	*const game = &(t_game) {0};
-	
+	t_game *const	game = &(t_game){0};
+
 	game->map = map;
 	game->player_point = get_player_point(map);
 	game->collectibles_count = get_collectible_count(map);
 	game->score = 0;
-	initialize_window(game);
+	return (initialize_window(game));
 }
