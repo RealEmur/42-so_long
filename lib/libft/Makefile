@@ -10,24 +10,23 @@ OBJS = $(SOURCES:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 
-PRINTF_NAME = libftprintf.a
 PRINTF_PATH = ft_printf
+PRINTF_SRCS = $(PRINTF_PATH)/ft_printf.c $(PRINTF_PATH)/utils/ft_putchar.c $(PRINTF_PATH)/handlers/handle_char.c \
+			$(PRINTF_PATH)/handlers/handle_string.c $(PRINTF_PATH)/utils/ft_putstr.c $(PRINTF_PATH)/utils/print_base.c \
+			$(PRINTF_PATH)/handlers/handle_hex_lower.c $(PRINTF_PATH)/handlers/handle_hex_upper.c \
+			$(PRINTF_PATH)/handlers/handle_address.c $(PRINTF_PATH)/handlers/handle_int.c \
+			$(PRINTF_PATH)/handlers/handle_unsigned_int.c
+PRINTF_OBJS = $(PRINTF_SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): printf $(OBJS)
-	cp $(PRINTF_PATH)/$(PRINTF_NAME) $(NAME)
-	ar -rc $(NAME) $(OBJS)
-
-printf:
-	make -C $(PRINTF_PATH)
+$(NAME): $(PRINTF_OBJS) $(OBJS)
+	ar -rc $(NAME) $(OBJS) $(PRINTF_OBJS)
 
 clean:
-	$(RM) $(OBJS)
-	make -C $(PRINTF_PATH) clean
+	$(RM) $(OBJS) $(PRINTF_OBJS)
 	
 fclean: clean
-	$(RM) $(NAME)
-	make -C $(PRINTF_PATH) fclean
+	$(RM) $(NAME) 
 	
 re: fclean all

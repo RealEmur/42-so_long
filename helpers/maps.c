@@ -6,7 +6,7 @@
 /*   By: emyildir <emyildir@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 23:51:55 by emyildir          #+#    #+#             */
-/*   Updated: 2024/07/10 17:05:27 by emyildir         ###   ########.fr       */
+/*   Updated: 2024/07/12 22:00:22 by emyildir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	load_map(t_map *map, int fd)
 		ft_strappend((char **) &data, buff);
 	}
 	free(buff);
-	if (ft_strnstr(data, "\n\n", ft_strlen(data)))
+	if (ft_strnstr(data, "\n\n", ft_strlen(data)) || *data == '\n')
 		return (free(data), 0);
 	map->map = ft_split(data, '\n');
 	return (free(data), 1);

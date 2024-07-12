@@ -6,7 +6,7 @@
 /*   By: emyildir <emyildir@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 12:25:16 by emyildir          #+#    #+#             */
-/*   Updated: 2024/07/10 20:30:24 by emyildir         ###   ########.fr       */
+/*   Updated: 2024/07/12 21:29:31 by emyildir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "./ft_printf/ft_printf.h"
+
+#include "ft_printf/ft_printf.h"
 
 typedef struct s_list
 {

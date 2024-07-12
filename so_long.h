@@ -6,7 +6,7 @@
 /*   By: emyildir <emyildir@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 23:48:59 by emyildir          #+#    #+#             */
-/*   Updated: 2024/07/10 20:08:03 by emyildir         ###   ########.fr       */
+/*   Updated: 2024/07/12 22:08:43 by emyildir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 #define CHARACTER_IMAGE_RIGHT_PATH "./textures/character_right.xpm"
 #define CHARACTER_IMAGE_LEFT_PATH "./textures/character_left.xpm"
 #define COLLECTIBLE_IMAGE_PATH "./textures/collectible.xpm"
-#define EXIT_IMAGE_PATH "./textures/door.xpm"
+#define EXIT_IMAGE_PATH "./textures/exit.xpm"
 #define EXIT_W_PLAYER_PATH "./textures/exit_w_player.xpm"
 #define WALL_IMAGE_PATH "./textures/wall.xpm"
 #define EMPTY_IMAGE_PATH "./textures/empty.xpm"
